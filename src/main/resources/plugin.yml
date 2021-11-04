@@ -1,0 +1,16 @@
+name: EasyBan
+main: de.bmxertv.easyban.EasyBan
+version: 1.0.0
+author: Bmxertv_YT
+commands:
+  ban:
+    usage: </command> <player> <reason>
+    description: Bannt ein Spieler vom Server
+    permission: easyban.ban
+    permission-message: §cDu hast keine Berechtigung um einen Spieler zu Bannen.
+
+  unban:
+    usage: </command> <player>
+    description: Entbannt einen Spieler vpm Server
+    permission: easyban.unban
+    permission-message: §cDu hast keine Berechtigung um einem Spieler zu entbannen.
