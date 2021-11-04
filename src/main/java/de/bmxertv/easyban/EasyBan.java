@@ -1,16 +1,16 @@
 package de.bmxertv.easyban;
 
 import de.bmxertv.easyban.command.BanCommand;
-import de.bmxertv.easyban.manager.BanManager;
-import de.bmxertv.easyban.model.BanModel;
+import de.bmxertv.easyban.listener.ConnectListener;
 import de.bmxertv.easyban.util.ConsoleUtil;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.time.LocalDateTime;
 import java.util.Objects;
-import java.util.UUID;
 
 public class EasyBan extends JavaPlugin {
+
+    public final String PREFIX = "&7[&cEasyBan&7]";
 
     @Override
     public void onEnable() {
@@ -21,8 +21,8 @@ public class EasyBan extends JavaPlugin {
         ConsoleUtil.info("-------------------");
 
         Objects.requireNonNull(getCommand("ban")).setExecutor(new BanCommand(this));
+        Bukkit.getPluginManager().registerEvents(new ConnectListener(this), this);
         getConfig().options().copyDefaults(true);
-        getConfig().options().header("---------\nHello World\n---------");
         saveDefaultConfig();
     }
 
