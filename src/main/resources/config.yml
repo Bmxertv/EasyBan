@@ -1,11 +1,12 @@
+dateTimeFormate: "HH:mm:ss dd.MM.yyyy"
 reasons:
   1:
     name: Hacking
     message:
       - "&7&m-----------"
-      - "Du wurdest gebannt wegen &cHacking"
-      - "von %from%"
-      - "bis %until%"
+      - "&r&7Du wurdest gebannt wegen &cHacking"
+      - "&r&7von %from%"
+      - "&r&7bis %until%"
     time:
       seconds: 0
       minutes: 0
@@ -19,9 +20,9 @@ reasons:
     customReason: true
     message:
       - "&7&m-----------"
-      - "Du wurdest gebannt wegen %reason%"
-      - "von %from%"
-      - "bis %until%"
+      - "&r&7Du wurdest gebannt wegen %reason%"
+      - "&r&7von %from%"
+      - "&r&7bis %until%"
     time:
       seconds: 0
       minutes: 0
