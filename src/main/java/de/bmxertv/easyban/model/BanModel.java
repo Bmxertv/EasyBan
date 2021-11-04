@@ -1,6 +1,6 @@
 package de.bmxertv.easyban.model;
 
-import de.bmxertv.easyban.exception.BanModelDeserializeException;
+import de.bmxertv.easyban.exception.DeserializeException;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 
@@ -11,7 +11,8 @@ import java.util.UUID;
 public class BanModel {
 
     private UUID bannedUuid;
-    private UUID fromUuid;
+    private String from;
+    private String reasonId;
     private String reason;
     private LocalDateTime bannedAt;
     private LocalDateTime bannedUntil;
@@ -19,35 +20,38 @@ public class BanModel {
     public BanModel() {
     }
 
-    public BanModel(UUID bannedUuid, UUID fromUuid, String reason, LocalDateTime bannedAt, LocalDateTime bannedUntil) {
+    public BanModel(UUID bannedUuid, String from, String reasonId, String reason, LocalDateTime bannedAt, LocalDateTime bannedUntil) {
         this.bannedUuid = bannedUuid;
-        this.fromUuid = fromUuid;
+        this.from = from;
+        this.reasonId = reasonId;
         this.reason = reason;
         this.bannedAt = bannedAt;
         this.bannedUntil = bannedUntil;
     }
 
     public static BanModel deserialize(ConfigurationSection section) {
-        if (section == null || !section.contains("from") || !section.contains("reason") || !section.contains("at") || !section.contains("until")) {
+        if (section == null || !section.contains("from") || !section.contains("reasonId")|| !section.contains("reason") || !section.contains("at") || !section.contains("until")) {
             try {
-                throw new BanModelDeserializeException(section);
-            } catch (BanModelDeserializeException e) {
+                throw new DeserializeException("BanModel", section);
+            } catch (DeserializeException e) {
                 e.printStackTrace();
             }
         }
 
         UUID bannedUuid = UUID.fromString(section.getName());
-        UUID fromUuid = UUID.fromString(section.getString("from"));
+        String from = section.getString("from");
+        String reasonId = section.getString("reasonId");
         String reason = section.getString("reason");
         LocalDateTime at = LocalDateTime.parse(section.getString("at"));
         LocalDateTime until = LocalDateTime.parse(section.getString("until"));
 
-        return new BanModel(bannedUuid, fromUuid, reason, at, until);
+        return new BanModel(bannedUuid, from, reasonId, reason, at, until);
     }
 
     public ConfigurationSection serialize(FileConfiguration configuration) {
         ConfigurationSection section = configuration.createSection(this.bannedUuid.toString());
-        section.set("from", this.fromUuid.toString());
+        section.set("from", this.from);
+        section.set("reasonId", this.reasonId);
         section.set("reason", this.reason);
         section.set("at", this.bannedAt.toString());
         section.set("until", this.bannedUntil.toString());
@@ -62,12 +66,20 @@ public class BanModel {
         this.bannedUuid = bannedUuid;
     }
 
-    public UUID getFromUuid() {
-        return fromUuid;
+    public String getFrom() {
+        return from;
     }
 
-    public void setFromUuid(UUID fromUuid) {
-        this.fromUuid = fromUuid;
+    public void setFrom(String from) {
+        this.from = from;
+    }
+
+    public String getReasonId() {
+        return reasonId;
+    }
+
+    public void setReasonId(String reasonId) {
+        this.reasonId = reasonId;
     }
 
     public String getReason() {
@@ -98,7 +110,7 @@ public class BanModel {
     public String toString() {
         return "BanModel{" +
                 "bannedUuid=" + bannedUuid +
-                ", fromUuid=" + fromUuid +
+                ", from=" + from +
                 ", reason='" + reason + '\'' +
                 ", bannedAt=" + bannedAt.format(DateTimeFormatter.ofPattern("HH:mm:ss dd.MM.yyyy")) +
                 ", bannedUntil=" + bannedUntil.format(DateTimeFormatter.ofPattern("HH:mm:ss dd.MM.yyyy")) +
