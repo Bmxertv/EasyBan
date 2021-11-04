@@ -1,7 +1,10 @@
 package de.bmxertv.easyban;
 
 import de.bmxertv.easyban.command.BanCommand;
+import de.bmxertv.easyban.command.UnbanCommand;
 import de.bmxertv.easyban.listener.ConnectListener;
+import de.bmxertv.easyban.tabcompleter.BanCompleter;
+import de.bmxertv.easyban.tabcompleter.UnbanCompleter;
 import de.bmxertv.easyban.util.ConsoleUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -21,6 +24,9 @@ public class EasyBan extends JavaPlugin {
         ConsoleUtil.info("-------------------");
 
         Objects.requireNonNull(getCommand("ban")).setExecutor(new BanCommand(this));
+        Objects.requireNonNull(getCommand("ban")).setTabCompleter(new BanCompleter(this));
+        Objects.requireNonNull(getCommand("unban")).setExecutor(new UnbanCommand(this));
+        Objects.requireNonNull(getCommand("unban")).setTabCompleter(new UnbanCompleter(this));
         Bukkit.getPluginManager().registerEvents(new ConnectListener(this), this);
         getConfig().options().copyDefaults(true);
         saveDefaultConfig();
