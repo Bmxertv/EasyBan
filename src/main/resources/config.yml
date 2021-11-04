@@ -1,0 +1,32 @@
+reasons:
+  1:
+    name: Hacking
+    message:
+      - "&7&m-----------"
+      - "Du wurdest gebannt wegen &cHacking"
+      - "von %from%"
+      - "bis %until%"
+    time:
+      seconds: 0
+      minutes: 0
+      hours: 0
+      days: 0
+      weeks: 1
+      months: 0
+      years: 0
+  2:
+    name: Lifetime
+    customReason: true
+    message:
+      - "&7&m-----------"
+      - "Du wurdest gebannt wegen %reason%"
+      - "von %from%"
+      - "bis %until%"
+    time:
+      seconds: 0
+      minutes: 0
+      hours: 0
+      days: 0
+      weeks: 0
+      months: 0
+      years: 999
