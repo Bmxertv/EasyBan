@@ -30,7 +30,7 @@ public record BanCommand(EasyBan easyBan) implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
         if (!(sender instanceof Player)) {
-            ConsoleUtil.error("[EasyBan] You must be a Player to use this Command!");
+            ConsoleUtil.info("[EasyBan] You must be a Player to use this Command!");
             return true;
         }
 
