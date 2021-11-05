@@ -21,11 +21,8 @@ public record BanCompleter(EasyBan easyBan) implements TabCompleter {
             List<String> playerNames = Arrays.stream(Bukkit.getOnlinePlayers().toArray(Player[]::new)).map(Player::getName).collect(Collectors.toList());
             Collections.sort(playerNames);
             return playerNames;
-        } else if (args.length == 2) {
-            List<String> ids = easyBan.getConfig().getConfigurationSection("reasons").getKeys(false).stream().toList();
-            Collections.sort(ids);
-            return ids;
         }
+
         return null;
     }
 

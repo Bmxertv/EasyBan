@@ -10,7 +10,6 @@ import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
-import org.bukkit.Color;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -72,13 +71,11 @@ public record BanCommand(EasyBan easyBan) implements CommandExecutor {
                 return true;
             }
 
-            ReasonModel reasonModel = ReasonModel.deserialize(reasonsConfig.getConfigurationSection(id));
-
-            if (reasonModel == null) {
+            if (!reasonsConfig.contains(id)) {
                 sendMessage(player, "This reason is currently not available");
                 return true;
             }
-
+            ReasonModel reasonModel = ReasonModel.deserialize(reasonsConfig.getConfigurationSection(id));
             BanModel banModel = new BanModel(target.getUniqueId(), player.getName(), id, reason, LocalDateTime.now(), reasonModel.calculateUntil());
             banManager.ban(banModel);
         }

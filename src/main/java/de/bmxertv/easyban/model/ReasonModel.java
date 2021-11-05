@@ -125,28 +125,31 @@ public class ReasonModel {
             }
         }
 
+        ConfigurationSection timeSection = section.getConfigurationSection("time");
+
         String name = section.getString("name");
         boolean customReason = section.contains("customReason") ? section.getBoolean("customReason") : false;
         List<String> message = section.getStringList("message");
-        int seconds = section.getInt("seconds");
-        int minutes = section.getInt("minutes");
-        int hours = section.getInt("hours");
-        int days = section.getInt("days");
-        int weeks = section.getInt("weeks");
-        int months = section.getInt("months");
-        int years = section.getInt("years");
+        int seconds = timeSection.getInt("seconds");
+        int minutes = timeSection.getInt("minutes");
+        int hours = timeSection.getInt("hours");
+        int days = timeSection.getInt("days");
+        int weeks = timeSection.getInt("weeks");
+        int months = timeSection.getInt("months");
+        int years = timeSection.getInt("years");
         return new ReasonModel(name, customReason, message, seconds, minutes, hours, days, weeks, months, years);
     }
 
     public LocalDateTime calculateUntil() {
-        LocalDateTime dateTime = LocalDateTime.now();
-        dateTime.plusSeconds(this.seconds);
-        dateTime.plusMinutes(this.minutes);
-        dateTime.plusHours(this.hours);
-        dateTime.plusDays(this.days);
-        dateTime.plusWeeks(this.weeks);
-        dateTime.plusMonths(this.months);
-        dateTime.plusYears(this.years);
-        return dateTime;
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime until =  now
+                .plusSeconds(this.seconds)
+                .plusMinutes(this.minutes)
+                .plusHours(this.hours)
+                .plusDays(this.days)
+                .plusWeeks(this.weeks)
+                .plusMonths(this.months)
+                .plusYears(this.years);
+        return until;
     }
 }

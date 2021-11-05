@@ -5,6 +5,7 @@ import de.bmxertv.easyban.command.UnbanCommand;
 import de.bmxertv.easyban.listener.ConnectListener;
 import de.bmxertv.easyban.tabcompleter.BanCompleter;
 import de.bmxertv.easyban.tabcompleter.UnbanCompleter;
+import de.bmxertv.easyban.task.UnbanTask;
 import de.bmxertv.easyban.util.ConsoleUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -14,6 +15,7 @@ import java.util.Objects;
 public class EasyBan extends JavaPlugin {
 
     public final String PREFIX = "&7[&cEasyBan&7]";
+    private UnbanTask unbanTask;
 
     @Override
     public void onEnable() {
@@ -22,6 +24,9 @@ public class EasyBan extends JavaPlugin {
         ConsoleUtil.info("Plugin by: " + getDescription().getAuthors());
         ConsoleUtil.info("Plugin Version: " + getDescription().getVersion());
         ConsoleUtil.info("-------------------");
+
+        this.unbanTask = new UnbanTask(this);
+        this.unbanTask.start();
 
         Objects.requireNonNull(getCommand("ban")).setExecutor(new BanCommand(this));
         Objects.requireNonNull(getCommand("ban")).setTabCompleter(new BanCompleter(this));
@@ -39,5 +44,7 @@ public class EasyBan extends JavaPlugin {
         ConsoleUtil.info("Plugin by: " + getDescription().getAuthors());
         ConsoleUtil.info("Plugin Version: " + getDescription().getVersion());
         ConsoleUtil.info("-------------------");
+
+        this.unbanTask.cancel();
     }
 }
