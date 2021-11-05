@@ -9,8 +9,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
-import org.bukkit.event.player.PlayerLoginEvent;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -33,6 +31,12 @@ public class BanManager {
         return fileConfiguration.getConfigurationSection(uuid.toString()) != null;
     }
 
+    public boolean hasBanEnd(UUID uuid) {
+        BanModel model = getBanned(uuid);
+        LocalDateTime now = LocalDateTime.now();
+        return now.isAfter(model.getBannedUntil()) || now.isEqual(model.getBannedUntil());
+    }
+
     public static String getBanReason(UUID uuid) {
         EasyBan easyBan = EasyBan.getPlugin(EasyBan.class);
         File file = Paths.get(easyBan.getDataFolder().getAbsolutePath(), "bans.yml").toFile();
@@ -45,7 +49,7 @@ public class BanManager {
                 .stream()
                 .collect(Collectors.joining("\n"))
                 .replace("%reason%", banModel.getReason())
-                .replace("%from%",  banModel.getFrom())
+                .replace("%from%", banModel.getFrom())
                 .replace("%until%", banModel.getBannedUntil().format(DateTimeFormatter.ofPattern(easyBan.getConfig().getString("dateTimeFormate"))));
         return reason;
     }
