@@ -60,5 +60,5 @@ reasons:
 - [X] Unban command
 - [X] Disallow connect if player is banned
 - [X] Save Banned players in config
-- [ ] Automatic unban player when the ban time is up
+- [X] Automatic unban player when the ban time is up
 - [ ] Inform the owner when a new version of this plugin is available
