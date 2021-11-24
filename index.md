@@ -1,3 +1,4 @@
+wad
 ## About
 
 EasyBan is a Plugin to Simplify ban's on you Minecraft Server
