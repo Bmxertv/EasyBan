@@ -2,5 +2,5 @@ theme: jekyll-theme-minimal
 logo: /image/brand.png
 show_downloads: true
 github:
-  zip_ul: https://github.com/Bmxertv/EasyBan/archive/refs/heads/master.zip
-  tar_url: https://github.com/Bmxertv/EasyBan/tarball/master
+  zip_url: http://example.com/download.zip
+  another_url: another value
