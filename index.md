@@ -1,11 +1,10 @@
-wad
 ## About
 
 EasyBan is a Plugin to Simplify ban's on you Minecraft Server
 
 ## Installation
 
-Download the plugin from [Github](https://github.com/Bmxertv/EasyBan). Now move
+Download the plugin from [GitHub Releases](https://github.com/Bmxertv/EasyBan/releases). Now move
 the `EasyBan-RELEASE.jar` into the plugin's folder of the server and state the server afterwards. As soon as the server is
 started, a new folder named `EasyBan` will be created in the plugin's folder. In this folder you will find a `config.yml` now
 you can start to set your ban reasons, and you can also set the format of all dates
